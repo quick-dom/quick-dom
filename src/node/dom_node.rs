@@ -1,6 +1,6 @@
 use node::Dom;
 use node::DomElement;
-
+use quick_xml::events::Event;
 /// A node in an element tree.
 #[derive(Clone, Debug)]
 pub enum DomNode<'a> {
@@ -8,11 +8,7 @@ pub enum DomNode<'a> {
     Dom(Dom<'a>),
     /// An `DomElement`.
     DomElement(DomElement<'a>),
-//TODO:
-//    /// A text node.
-//    DomText(DomText),
-//    /// A comment node.
-//    DomComment(DomComment),
+    DomEvent(Event<'a>)
 }
 impl<'a> DomNode<'a> {
     pub fn append_child(&mut self, child: DomNode<'a>)  {
@@ -22,6 +18,9 @@ impl<'a> DomNode<'a> {
             },
             &mut DomNode::DomElement(ref mut e) => {
                 e.append_child(child);
+            },
+            _ => {
+
             },
         }
     }

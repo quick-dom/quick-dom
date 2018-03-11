@@ -11,7 +11,7 @@ fn main() {
 
 #[allow(dead_code)]
 fn main1() {
-    let filename = "xsd.xml/BPMN20.xsd"; //"xsd.xml/Semantic.xsd";
+    let filename = "tests/test.bpmn2";//"xsd.xml/BPMN20.xsd"; //"xsd.xml/Semantic.xsd";
 
     let mut f = File::open(filename).expect("file not found");
 
@@ -22,10 +22,10 @@ fn main1() {
     let xml: &str = &contents;
 
     let mut reader = Reader::from_str(xml);
-    reader.trim_text(true);
+//    reader.trim_text(true);
 
     let dom = dom::dom_from_reader(&mut reader).unwrap();
     //println!("{:?}", dom);
-    dom::walk(0, &dom);
+    dom::walk(0, 0, &dom);
     //TODO: dom::walk(&dom, fn) or map?
 }
