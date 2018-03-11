@@ -65,7 +65,7 @@ pub fn dom_from_reader<R: BufRead>(reader: &mut Reader<R>) -> Result<DomNode> {
 
 use std::str::from_utf8;
 //use std::iter::repeat;
-pub fn walk<'a>(indent: usize, indent_delta: usize, handle: &DomNode<'a>) {
+pub fn walk_and_print<'a>(indent: usize, indent_delta: usize, handle: &DomNode<'a>) {
     let node = handle;
 //    TODO: indents on reader.trim_text(true);
 //    FIXME: don't allocate
@@ -83,13 +83,13 @@ pub fn walk<'a>(indent: usize, indent_delta: usize, handle: &DomNode<'a>) {
             if element.children.len()>0 {
                 print!(">");
                 for child in element.children.iter() {
-                    walk(indent + indent_delta,  indent_delta, &child);
+                    walk_and_print(indent + indent_delta, indent_delta, &child);
                 }
                 print!("</{}>", from_utf8(element.bytes_start.name()).unwrap());
             }else{
                 if element.is_empty_event {
                     print!("/>");
-                }else {
+                } else {
                     print!(">");
                     print!("</{}>", from_utf8(element.bytes_start.name()).unwrap());
                 }
@@ -97,7 +97,7 @@ pub fn walk<'a>(indent: usize, indent_delta: usize, handle: &DomNode<'a>) {
         }
         DomNode::Dom(ref element) => {
             for child in element.children.iter() {
-                walk(indent, indent_delta,&child);
+                walk_and_print(indent, indent_delta, &child);
             }
         }
         DomNode::DomEvent(Event::Decl(ref decl)) => {

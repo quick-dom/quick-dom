@@ -26,6 +26,6 @@ fn main1() {
 
     let dom = dom::dom_from_reader(&mut reader).unwrap();
     //println!("{:?}", dom);
-    dom::walk(0, 0, &dom);
+    dom::walk_and_print(0, 0, &dom);
     //TODO: dom::walk(&dom, fn) or map?
 }
