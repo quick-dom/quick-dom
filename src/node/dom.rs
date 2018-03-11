@@ -20,4 +20,9 @@ impl<'a> Dom<'a> {
     pub fn append_child(&mut self, child: DomNode<'a>) {
         self.children.push(child);
     }
+    pub fn into_owned(self) -> Dom<'a> {
+        Dom {
+            children: self.children,
+        }
+    }
 }

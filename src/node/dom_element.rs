@@ -21,4 +21,12 @@ impl<'a> DomElement<'a> {
     pub fn append_child(&mut self, child: DomNode<'a>) {
         self.children.push(child);
     }
+    pub fn into_owned(self) -> DomElement<'a> {
+        DomElement {
+            bytes_start: self.bytes_start.into_owned(),
+            is_empty_event: self.is_empty_event,
+            //TODO: Cow?
+            children: self.children,
+        }
+    }
 }

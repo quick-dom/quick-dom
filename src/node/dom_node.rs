@@ -4,9 +4,7 @@ use quick_xml::events::Event;
 /// A node in an element tree.
 #[derive(Clone, Debug)]
 pub enum DomNode<'a> {
-    /// An `Dom`.
     Dom(Dom<'a>),
-    /// An `DomElement`.
     DomElement(DomElement<'a>),
     DomEvent(Event<'a>)
 }
@@ -22,6 +20,16 @@ impl<'a> DomNode<'a> {
             _ => {
 
             },
+        }
+    }
+    /// TODO: lifetime static
+    /// Converts the dom node to an owned version, untied to the lifetime of
+    /// buffer used when reading but incurring a new, seperate allocation.
+    pub fn into_owned(self) -> DomNode<'a> {
+        match self {
+            DomNode::Dom(e) => DomNode::Dom(e.into_owned()),
+            DomNode::DomElement(e) => DomNode::DomElement(e.into_owned()),
+            DomNode::DomEvent(e) => DomNode::DomEvent(e.into_owned()),
         }
     }
 }
