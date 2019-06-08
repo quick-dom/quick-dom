@@ -8,7 +8,7 @@ use dom::DomNode;
 
 fn main() {
     main0();
-//    main1();
+    main1();
 }
 
 #[allow(dead_code)]

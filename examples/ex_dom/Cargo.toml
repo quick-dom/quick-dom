@@ -5,5 +5,5 @@ authors = ["rbpm <Wiesiek.Baranowski@gmail.com>"]
 workspace = "../.."
 
 [dependencies]
-quick-xml = "0.12"
+quick-xml = "0.14"
 dom = { path = "../../" }
